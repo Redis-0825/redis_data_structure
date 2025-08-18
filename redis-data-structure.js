@@ -43,3 +43,20 @@ hincrby "laptop:1" price -1000000 //increment by, kurangi value price dengan -10
 hget "laptop:1" price //valuenya menjadi 4000000
 hincrby "laptop:2" price 1000000 //increment by, tambah value price dengan 1000000
 hget "laptop:2" price //valuenya menjadi 9000000
+
+//Sorted Sets
+//Mirip sets, tapi datanya diurutkan sesuai nilai score (score untuk sort by ascending)
+//Jika terdapat score sama, diurutakan scr lexicographically
+//Value boleh sama jika score berbeda, dikatakan unik jika value dan score sama
+zadd quantity 99 mangga //add data sorted sets
+zadd quantity 49 alpukat
+zadd quantity 91  melon
+zadd quantity 95 manggis
+zcard quantity //4, sesuai jumlah data sorted sets
+zrange quantity 0 2//alpukat, melon, manggis -> show by ascending index 0-2
+zrange quantity 90 100 byscore //melon, manggis, mangga -> show by score dan tetap ascending
+zrange quantity 0 -1 withscores //show semua data baik value dan score
+zrem quantity manggis //remove spesific data
+zrange quantity 0 -1 withscores //data manggis sudah terhapus
+zremrangebyscore quantity 45 95 //remove range tertentu by score misal 45-94
+zrange quantity 0 -1 withscores //data dengan score dari 45 ke 95 dalam hal ini alpukat dan melon sudah terhapus
