@@ -27,3 +27,19 @@ sadd peoples3 andi nida pika risa
 sdiff peoples peoples2 //data yang ada di peoples tapi tidak ada di peoples2 (hasan, budi)
 sinter peoples peoples2 //data yang ada di peoples dan peoples2 (andi)
 sunion peoples peoples2 //data diambil semua dari peoples dan peoples2 tapi tetap harus unix (budi, andi, hasan, mira, nida)
+
+//Hashes
+//Berbentuk pair (key-value)
+//Tidak menggunakan index seperti Lists, bisa menggunakan key apapun
+hset "laptop:1" name "Asus Tuf Gaming 281B" price "15000000" brand "Asus" //set hashes
+hset "laptop:2" name "Thinkpad T480s" price "8000000" brand "Lenovo"
+hset "laptop:3" name "Macbook Pro M4" price "28000000" brand "Apple"
+hgetall "laptop:1" //get all value hashes (key-value) laptop:1, sesuai inputan
+hget "laptop:2" name //get salah satu, result : Thinkpad T480s
+hget "laptop:3" brand //get salah satu, result : Apple
+hset "laptop:1" name "HP Pavilion G4" price "5000000" brand "HP" //Update data yang sudah ada, bisa juga update hanya 1 key:value
+hgetall "laptop:1" //Data pada laptop:1 akan terupdate
+hincrby "laptop:1" price -1000000 //increment by, kurangi value price dengan -1000000
+hget "laptop:1" price //valuenya menjadi 4000000
+hincrby "laptop:2" price 1000000 //increment by, tambah value price dengan 1000000
+hget "laptop:2" price //valuenya menjadi 9000000
