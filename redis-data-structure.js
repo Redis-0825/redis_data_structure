@@ -68,3 +68,14 @@ xadd api.response * level "200" message "OK Success" //add streams data
 xadd api.response * level "404" message "Error Request"
 xadd api.response * level "500" message "Server Error"
 xread count 2 streams api.response 0 //show 2 data streams dari index 0, result 200 & 404
+
+//Geospatial
+//Untuk menyimpan data koordinat, cocok untuk mencari koordinat terdekat, jarak, radius dll
+geoadd member.location 106.657097 -6.225215 member1 //add geospatial data
+geoadd member.location 106.658310 -6.224724 member2
+geopos member.location member1 //get data geo
+geopos member.location member2
+geodist member.location member1 member2 km //cek jarak antar lokasi dalam KM
+geodist member.location member1 member2 m //cek jarak antar lokasi dalam M
+geosearch member.location fromlonlat 106.657633 -6.225209 byradius 1 km //search lokasi dari titik tertentu dalam jangkauan 1km
+geosearch member.location fromlonlat 106.657633 -6.225209 byradius 200 m //search lokasi dari titik tertentu dalam jangkauan 200m
