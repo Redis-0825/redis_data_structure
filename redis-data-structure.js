@@ -60,3 +60,11 @@ zrem quantity manggis //remove spesific data
 zrange quantity 0 -1 withscores //data manggis sudah terhapus
 zremrangebyscore quantity 45 95 //remove range tertentu by score misal 45-94
 zrange quantity 0 -1 withscores //data dengan score dari 45 ke 95 dalam hal ini alpukat dan melon sudah terhapus
+
+//Streams
+//Struktur data seperti log, data akan bertambah terus di belakang (append-only), cocok menyimpan data kejadian yg berurut
+//Data pada Streams berupa key-value seperti Hash
+xadd api.response * level "200" message "OK Success" //add streams data
+xadd api.response * level "404" message "Error Request"
+xadd api.response * level "500" message "Server Error"
+xread count 2 streams api.response 0 //show 2 data streams dari index 0, result 200 & 404
