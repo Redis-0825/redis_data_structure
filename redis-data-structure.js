@@ -1,6 +1,7 @@
 //List (Linked List)
 //Antrian diambil data paling bawah/kanan
 //Tumpukan diambil data paling atas/kiri
+//https://redis.io/commands/?group=list
 lpush names "hasan" //push value ke list names ke sebelah kiri/left
 lrange names 0 5 //show list names dari sebelah kiri, (hasan)
 lpush names "andi"
@@ -16,6 +17,7 @@ lrange names 0 5 //show list names dari sebelah kiri, (andi, cindy)
 
 //Sets
 //Mirip lists, tapi harus unix dan tidak pasti berurutan
+//https://redis.io/commands/?group=set
 sadd people hasan andi budi //berhasill add 3 value
 sadd people hasan andi budi cindy //hanya berhasil add 1 value (cindy) karena harus unix
 scard peoples //tampil 4 value tersimpan
@@ -31,6 +33,7 @@ sunion peoples peoples2 //data diambil semua dari peoples dan peoples2 tapi teta
 //Hashes
 //Berbentuk pair (key-value)
 //Tidak menggunakan index seperti Lists, bisa menggunakan key apapun
+//https://redis.io/commands/?group=hash
 hset "laptop:1" name "Asus Tuf Gaming 281B" price "15000000" brand "Asus" //set hashes
 hset "laptop:2" name "Thinkpad T480s" price "8000000" brand "Lenovo"
 hset "laptop:3" name "Macbook Pro M4" price "28000000" brand "Apple"
@@ -48,6 +51,7 @@ hget "laptop:2" price //valuenya menjadi 9000000
 //Mirip sets, tapi datanya diurutkan sesuai nilai score (score untuk sort by ascending)
 //Jika terdapat score sama, diurutakan scr lexicographically
 //Value boleh sama jika score berbeda, dikatakan unik jika value dan score sama
+//https://redis.io/commands/?group=sorted-set
 zadd quantity 99 mangga //add data sorted sets
 zadd quantity 49 alpukat
 zadd quantity 91  melon
@@ -64,6 +68,7 @@ zrange quantity 0 -1 withscores //data dengan score dari 45 ke 95 dalam hal ini 
 //Streams
 //Struktur data seperti log, data akan bertambah terus di belakang (append-only), cocok menyimpan data kejadian yg berurut
 //Data pada Streams berupa key-value seperti Hash
+//https://redis.io/commands/?group=stream
 xadd api.response * level "200" message "OK Success" //add streams data
 xadd api.response * level "404" message "Error Request"
 xadd api.response * level "500" message "Server Error"
@@ -71,6 +76,7 @@ xread count 2 streams api.response 0 //show 2 data streams dari index 0, result 
 
 //Geospatial
 //Untuk menyimpan data koordinat, cocok untuk mencari koordinat terdekat, jarak, radius dll
+//https://redis.io/commands/?group=geo
 geoadd member.location 106.657097 -6.225215 member1 //add geospatial data
 geoadd member.location 106.658310 -6.224724 member2
 geopos member.location member1 //get data geo
@@ -84,6 +90,16 @@ geosearch member.location fromlonlat 106.657633 -6.225209 byradius 200 m //searc
 //Struktur data probabilistik untuk estimasi kardinalitas (jumlah data unit) dari set
 //Digunakan untuk membuat memory penyimpanan lebih efisien
 //Hanya dapat menghitung jumlah data unit, tapi tidak bisa melihat atau mengambil detail datanya
+//https://redis.io/commands/?group=hyperloglog
 pfadd members hasan adi budi cici //add data HyperLogLog
 pfadd members budi cici deni erlan
 pfcount members //Get jumlah data, 6 karena harus unix
+
+//Struktur Data Lainnya
+//Struktur data yang mungkin jarang digunakan, namun didukung oleh Redis
+//Bitmaps : https://redis.io/docs/data-types/bitmaps/
+//Bitfields : https://redis.io/docs/data-types/bitfields/
+//Pada redis yang bukan versi Open Source/versi Enterprise, terdapat struktur data lain yang didukung, seperti :
+//JSON : https://redis.io/docs/data-types/json/
+//TimeSeries : https://redis.io/docs/data-types/timeseries/
+//Probabilistic : https://redis.io/docs/data-types/probabilistic/
