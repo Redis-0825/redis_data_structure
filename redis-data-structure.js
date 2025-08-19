@@ -79,3 +79,11 @@ geodist member.location member1 member2 km //cek jarak antar lokasi dalam KM
 geodist member.location member1 member2 m //cek jarak antar lokasi dalam M
 geosearch member.location fromlonlat 106.657633 -6.225209 byradius 1 km //search lokasi dari titik tertentu dalam jangkauan 1km
 geosearch member.location fromlonlat 106.657633 -6.225209 byradius 200 m //search lokasi dari titik tertentu dalam jangkauan 200m
+
+//HyperLogLog
+//Struktur data probabilistik untuk estimasi kardinalitas (jumlah data unit) dari set
+//Digunakan untuk membuat memory penyimpanan lebih efisien
+//Hanya dapat menghitung jumlah data unit, tapi tidak bisa melihat atau mengambil detail datanya
+pfadd members hasan adi budi cici //add data HyperLogLog
+pfadd members budi cici deni erlan
+pfcount members //Get jumlah data, 6 karena harus unix
